@@ -16,7 +16,7 @@ const Login = () => {
       password: password,
     };
     axios
-      .post("http://localhost:3001/user/login", user)
+      .post(`${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/user/login`, user)
       .then((res) => dispatch(login(res.data.email)))
       .then(theUser && navigate("/chat"));
   };

@@ -5,7 +5,7 @@ import Chat from "./Chat";
 //connecting to the backEnd server
 
 const Message = () => {
-  const socket = io.connect("http://localhost:3001");
+  const socket = io.connect(`${process.env.REACT_APP_SECERET_NAME_BACKENDURL}`);
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
   const [messageList, setMessageList] = useState([]);
@@ -47,7 +47,7 @@ const Message = () => {
       setMessageList([]);
       setResetChat(true);
     });
-  }, [socket]);
+  }, [socket, resetChat]);
 
   return (
     <div className="flex justify-center flex-col items-center w-screen h-screen bg-blue-400">

@@ -37,7 +37,10 @@ const Register = () => {
       email: email,
       password: password,
     };
-    const res = await axios.post("http://localhost:3001/user/register", user);
+    const res = await axios.post(
+      `${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/user/register`,
+      user
+    );
     res.data && navigate("login");
   };
 

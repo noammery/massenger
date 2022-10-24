@@ -7,12 +7,14 @@ import { useSelector } from "react-redux";
 const Chat = (props) => {
   const email = useSelector((state) => state.user.email);
   let askedQuestion = props.askedQuestion;
+  // eslint-disable-next-line
   const { room, socket, messageList, setMessageList } = props;
   const [message, setMessage] = useState("");
   const [inputValue, setInputValue] = useState();
   const [user, setUser] = useState();
   const endMessage = useRef(null);
   const [adminRespone, setAdminRespone] = useState("");
+  // eslint-disable-next-line
   const [prevQuestion, setPrevQuestion] = useState("");
   const [answer7, setAnswer7] = useState("");
 
@@ -20,7 +22,9 @@ const Chat = (props) => {
     e.preventDefault();
     if (message !== "") {
       axios
-        .post(`http://localhost:3001/ai/question`, { question: message })
+        .post(`${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/ai/question`, {
+          question: message,
+        })
         .then((res) =>
           res.data === null ? setAnswer7("sorry") : setAnswer7(res.data.answer)
         );
@@ -50,6 +54,7 @@ const Chat = (props) => {
       socket.emit(`send_message`, messageData);
       socket.emit(`send_message`, messageData2);
     }
+    // eslint-disable-next-line
   }, [answer7]);
 
   const AdminChat = (data) => {
@@ -83,7 +88,10 @@ const Chat = (props) => {
       answer: adminRespone,
     };
     axios
-      .post(`http://localhost:3001/ai/answers`, newAnswer)
+      .post(
+        `${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/ai/answers`,
+        newAnswer
+      )
       .then((res) => console.log(res.data));
   };
 
@@ -116,9 +124,9 @@ const Chat = (props) => {
   useEffect(() => {
     const find = { email: email };
     axios
-      .post("http://localhost:3001/user/find", find)
+      .post(`${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/user/find`, find)
       .then((res) => setUser(res.data.fullName));
-  }, []);
+  }, [email]);
 
   return (
     <div className="mt-10 flex flex-col items-center">
