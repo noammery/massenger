@@ -1,18 +1,68 @@
 import axios from "axios";
+import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const Chat = (props) => {
   const email = useSelector((state) => state.user.email);
-  const room = props.room;
-  const socket = props.socket;
-  const messageList = props.messageList;
+  let askedQuestion = props.askedQuestion;
+  const { room, socket, messageList, setMessageList } = props;
   const [message, setMessage] = useState("");
   const [inputValue, setInputValue] = useState();
   const [user, setUser] = useState();
+  const endMessage = useRef(null);
+  const [adminRespone, setAdminRespone] = useState("");
+  const [prevQuestion, setPrevQuestion] = useState("");
+  const [answer7, setAnswer7] = useState("");
 
-  const Send = async () => {
+  const Room7 = (e) => {
+    e.preventDefault();
+    if (message !== "") {
+      axios
+        .post(`http://localhost:3001/ai/question`, { question: message })
+        .then((res) =>
+          res.data === null ? setAnswer7("sorry") : setAnswer7(res.data.answer)
+        );
+    }
+  };
+
+  useEffect(() => {
+    if (answer7 !== "") {
+      const messageData = {
+        room: room,
+        message: message,
+        author: user,
+        time:
+          new Date(Date.now()).getHours() +
+          ":" +
+          new Date(Date.now()).getMinutes(),
+      };
+      const messageData2 = {
+        room: room,
+        message: answer7,
+        author: "AI",
+        time:
+          new Date(Date.now()).getHours() +
+          ":" +
+          new Date(Date.now()).getMinutes(),
+      };
+      socket.emit(`send_message`, messageData);
+      socket.emit(`send_message`, messageData2);
+    }
+  }, [answer7]);
+
+  const AdminChat = (data) => {
+    setAdminRespone(data);
+    setMessage(data);
+  };
+  const AdminQuestion = (data) => {
+    setPrevQuestion(data);
+    setMessage(data);
+  };
+
+  const SubmitIt = async (e) => {
+    e.preventDefault();
     if (message !== "") {
       const messageData = {
         room: room,
@@ -28,7 +78,40 @@ const Chat = (props) => {
       setInputValue();
       setMessage("");
     }
+    const newAnswer = {
+      question: askedQuestion,
+      answer: adminRespone,
+    };
+    axios
+      .post(`http://localhost:3001/ai/answers`, newAnswer)
+      .then((res) => console.log(res.data));
   };
+
+  const Send = async (e) => {
+    e.preventDefault();
+    if (message !== "") {
+      const messageData = {
+        room: room,
+        message: message,
+        author: user,
+        time:
+          new Date(Date.now()).getHours() +
+          ":" +
+          new Date(Date.now()).getMinutes(),
+      };
+      setInputValue("");
+      await socket.emit(`send_message`, messageData);
+      setInputValue();
+      setMessage("");
+    }
+    if (room === "admin" && user !== "admin admin" && message !== "") {
+      socket.emit(`submit_question`, message);
+    }
+  };
+
+  useEffect(() => {
+    endMessage.current?.scrollIntoView();
+  }, [messageList]);
 
   useEffect(() => {
     const find = { email: email };
@@ -36,19 +119,18 @@ const Chat = (props) => {
       .post("http://localhost:3001/user/find", find)
       .then((res) => setUser(res.data.fullName));
   }, []);
-  console.log(user);
 
   return (
     <div className="mt-10 flex flex-col items-center">
       <div>
-        <h1 className="text-center text-xl font-semibold">
+        <h1 className="text-center text-xl font-semibold italic underline decoration-purple-700">
           Better then Whatsapp Chat
         </h1>
         <h1 className="mt-2 text-center text-lg italic font-medium">
-          welcome {user}, chat in room: {room}
+          welcome {user}, currently in room: {room}
         </h1>
       </div>
-      <div className="w-64 h-80 border-green-700 border-2 bg-orange-200/20 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide">
+      <div className="w-64 h-80 border-black border-2 bg-orange-200/80 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide rounded-md">
         {messageList.map((message, index) => {
           return message.author === user ? (
             <div key={index} className="inline-flex w-60 break-all">
@@ -71,23 +153,38 @@ const Chat = (props) => {
             </div>
           );
         })}
+        <div ref={endMessage}></div>
       </div>
-      <div className="w-64">
+      <form
+        onSubmit={
+          room === "7"
+            ? Room7
+            : room === "admin" && user === "admin admin"
+            ? SubmitIt
+            : Send
+        }
+        className="w-64"
+      >
         <input
           type="text"
           placeholder="Enter a message"
-          className="border-green-700 border-2 border-r-0 h-10 w-52"
-          onChange={(e) => setMessage(e.target.value)}
+          className="border-black border-2  h-10 w-52 mt-1 rounded-md"
+          onChange={(e) =>
+            room === "admin" && user === "admin admin"
+              ? AdminChat(e.target.value)
+              : room === "admin"
+              ? AdminQuestion(e.target.value)
+              : setMessage(e.target.value)
+          }
           value={inputValue}
         />
         <button
           type="submit"
-          className="bg-gray-400/50  w-12 h-10 border-green-700 border-2 border-l-black"
-          onClick={Send}
+          className="bg-gray-400/50  w-12 h-10 border-black border-2 border-l-black rounded-md"
         >
           ➤
         </button>
-      </div>
+      </form>
     </div>
   );
 };

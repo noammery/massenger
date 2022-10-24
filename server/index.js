@@ -6,6 +6,7 @@ const { Server } = require(`socket.io`);
 const cors = require(`cors`);
 const bodyParser = require(`body-parser`);
 const usersRouter = require(`./routes/usersApi`);
+const answerRouter = require(`./routes/answerApi`);
 mongoose.Promise = global.Promise;
 mongoose
   .connect(
@@ -23,12 +24,32 @@ const server = http.createServer(app);
 
 app.use(`/user`, usersRouter);
 
+app.use(`/ai`, answerRouter);
+
 const io = new Server(server, {
   cors: {
     origin: `http://localhost:3000`,
     methods: ["GET", "POST"],
   },
 });
+
+const respone1 = (socket, message) => {
+  socket.to(message.room).emit("receive_message", {
+    author: message.author,
+    message: message.message,
+    time:
+      new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+  });
+};
+
+const respone = (socket, message, respone) => {
+  socket.to(message.room).emit("receive_message", {
+    author: "Auto-respone",
+    message: respone,
+    time:
+      new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+  });
+};
 
 io.on(`connection`, (socket) => {
   console.log(`User connected: ${socket.id}`);
@@ -38,8 +59,66 @@ io.on(`connection`, (socket) => {
     console.log(`User ${socket.id} joined room ${roomId}`);
   });
 
+  socket.on(`submit_question`, (data) => {
+    socket.to("admin").emit(`asked_question`, data);
+  });
+
   socket.on(`send_message`, (message) => {
-    socket.to(message.room).emit("receive_message", message);
+    if (message.room === "404") {
+      const theMessage = message.message.toLowerCase();
+      respone1(socket, message);
+      switch (true) {
+        case theMessage.includes("hey"):
+          respone(socket, message, "Hey, how are you");
+          break;
+        case theMessage.includes("your name"):
+          respone(socket, message, "Im noam, your online pal");
+          break;
+        case theMessage.includes("weather"):
+          respone(socket, message, "Go outside and cheak");
+          break;
+        case theMessage.includes("love"):
+          respone(socket, message, "I love you so much!");
+          break;
+        case theMessage.includes("another", "joke"):
+          respone(socket, message, "Shot, i ran out of jokes...");
+          break;
+        case theMessage.includes("joke"):
+          respone(socket, message, "Your mama");
+          break;
+        case theMessage.includes("how are you"):
+          respone(socket, message, "Im great! thanks");
+          break;
+        case theMessage.includes("time"):
+          respone(
+            socket,
+            message,
+            `the time now is : ${
+              new Date(Date.now()).getHours() +
+              ":" +
+              new Date(Date.now()).getMinutes()
+            }`
+          );
+          break;
+        case theMessage.includes("age"):
+          respone(socket, message, "You shouldnt ask that");
+          break;
+        case theMessage.includes("how are you"):
+          respone(socket, message, "Im great! thanks");
+          break;
+
+        default:
+          break;
+      }
+    } else {
+      socket.to(message.room).emit("receive_message", message);
+    }
+  });
+
+  socket.on(`leave`, (room) => {
+    socket.leave(room);
+    console.log(`user ${socket.id} left room ${room}`);
+    socket.emit(`reset_chat`);
   });
 
   socket.on(`disconnect`, () => {
