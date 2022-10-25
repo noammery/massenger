@@ -5,7 +5,7 @@ import Chat from "./Chat";
 //connecting to the backEnd server
 
 const Message = () => {
-  const socket = io.connect(`${process.env.REACT_APP_SECERET_NAME_BACKENDURL}`);
+  const socket = io.connect(process.env.REACT_APP_SECERET_NAME_BACKENDURL);
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
   const [messageList, setMessageList] = useState([]);
@@ -28,8 +28,6 @@ const Message = () => {
     await socket.emit(`leave`, room);
     setShowChat(false);
   };
-  console.log(resetChat);
-  console.log(messageList);
   useEffect(() => {
     socket.on("receive_message", (message) => {
       if (!resetChat) {
@@ -47,7 +45,8 @@ const Message = () => {
       setMessageList([]);
       setResetChat(true);
     });
-  }, [socket, resetChat]);
+    // eslint-disable-next-line
+  }, [socket]);
 
   return (
     <div className="flex justify-center flex-col items-center w-screen h-screen bg-blue-400">

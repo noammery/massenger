@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 const Navbar = () => {
   const location = useLocation().pathname;
   const user = useSelector((state) => state.user.email);
-  console.log(location);
   return (
     <div className="w-screen h-16 bg-black fixed flex justify-between">
       <div className="flex items-center">
