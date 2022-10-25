@@ -6,7 +6,7 @@ import Chat from "./Chat";
 
 const Message = () => {
   const socket = io.connect(process.env.REACT_APP_SECERET_NAME_BACKENDURL, {
-    transports: ["websocket", "polling"],
+    transports: ["websocket"],
   });
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
