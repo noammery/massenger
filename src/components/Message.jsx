@@ -6,6 +6,7 @@ import Chat from "./Chat";
 
 const Message = () => {
   const socket = io.connect(`https://puce-odd-chipmunk.cyclic.app`, {
+    withCredentials: true,
     transports: ["websocket"],
   });
   const [room, setRoom] = useState("");
