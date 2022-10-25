@@ -5,7 +5,7 @@ import Chat from "./Chat";
 //connecting to the backEnd server
 
 const Message = () => {
-  const socket = io.connect(process.env.REACT_APP_SECERET_NAME_BACKENDURL, {
+  const socket = io.connect(`https://puce-odd-chipmunk.cyclic.app`, {
     transports: ["websocket"],
   });
   const [room, setRoom] = useState("");
