@@ -5,7 +5,9 @@ import Chat from "./Chat";
 //connecting to the backEnd server
 
 const Message = () => {
-  const socket = io.connect(process.env.REACT_APP_SECERET_NAME_BACKENDURL);
+  const socket = io.connect(process.env.REACT_APP_SECERET_NAME_BACKENDURL, {
+    transports: ["websocket", "polling"],
+  });
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
   const [messageList, setMessageList] = useState([]);
