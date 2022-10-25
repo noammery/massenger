@@ -11,14 +11,14 @@ const Chat = (props) => {
   const { room, socket, messageList, setMessageList } = props;
   const [message, setMessage] = useState("");
   const [inputValue, setInputValue] = useState();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(email);
   const endMessage = useRef(null);
   const [adminRespone, setAdminRespone] = useState("");
   // eslint-disable-next-line
   const [prevQuestion, setPrevQuestion] = useState("");
   const [answer7, setAnswer7] = useState("");
 
-  const Room7 = (e) => {
+  const Room7 = async (e) => {
     e.preventDefault();
     if (message !== "") {
       axios
@@ -28,7 +28,10 @@ const Chat = (props) => {
         .then((res) =>
           res.data === null ? setAnswer7("sorry") : setAnswer7(res.data.answer)
         );
+      await setInputValue("");
+      setInputValue();
     }
+    // setMessage("");
   };
 
   useEffect(() => {
@@ -127,7 +130,6 @@ const Chat = (props) => {
       .post(`${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/user/find`, find)
       .then((res) => setUser(res.data.fullName));
   }, [email]);
-
   return (
     <div className="mt-10 flex flex-col items-center">
       <div>
@@ -135,7 +137,7 @@ const Chat = (props) => {
           Better then Whatsapp Chat
         </h1>
         <h1 className="mt-2 text-center text-lg italic font-medium">
-          welcome {user}, currently in room: {room}
+          welcome {user ? user : email}, currently in room: {room}
         </h1>
       </div>
       <div className="w-64 h-80 border-black border-2 bg-orange-200/80 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide rounded-md">

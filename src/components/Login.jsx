@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../slices/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
-  const theUser = useSelector((state) => state.user.email);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,8 +16,7 @@ const Login = () => {
     };
     axios
       .post(`${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/user/login`, user)
-      .then((res) => dispatch(login(res.data.email)))
-      .then(theUser && navigate("/chat"));
+      .then((res) => dispatch(login(res.data.email)) && navigate("/chat"));
   };
   return (
     <div className="h-screen w-screen bg-blue-400 flex justify-center items-center">

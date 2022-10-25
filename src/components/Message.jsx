@@ -1,24 +1,31 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { io } from "socket.io-client";
 import Chat from "./Chat";
 //connecting to the backEnd server
 
 const Message = () => {
-  const socket = io.connect(`https://nmmessanger-api.herokuapp.com`, {
+  // https://nmmessanger-api.herokuapp.com
+  const socket = io.connect(`http://localhost:3001`, {
     withCredentials: true,
     transports: ["websocket"],
   });
   const [room, setRoom] = useState("");
+  const navigate = useNavigate();
   const [showChat, setShowChat] = useState(false);
   const [messageList, setMessageList] = useState([]);
   let [askedQuestion, setAskedQuestion] = useState("");
-  const [resetChat, setResetChat] = useState(false);
+  const [error, setError] = useState(false);
 
-  const JoinRoom = () => {
+  const JoinRoom = (e) => {
     if (room !== "") {
       socket.emit(`join_room`, room);
       setShowChat(true);
+      setError(false);
+    } else {
+      e.preventDefault();
+      setError(true);
     }
   };
 
@@ -29,16 +36,11 @@ const Message = () => {
 
   const leaveChat = async (e) => {
     await socket.emit(`leave`, room);
-    setShowChat(false);
+    navigate("/");
   };
   useEffect(() => {
     socket.on("receive_message", (message) => {
-      if (!resetChat) {
-        setMessageList((list) => [...list, message]);
-      } else {
-        setMessageList([...message]);
-      }
-      setResetChat(false);
+      setMessageList((list) => [...list, message]);
     });
     socket.on(`asked_question`, (data1) => {
       const theData = data1;
@@ -46,7 +48,6 @@ const Message = () => {
     });
     socket.on(`reset_chat`, () => {
       setMessageList([]);
-      setResetChat(true);
     });
     // eslint-disable-next-line
   }, [socket]);
@@ -65,6 +66,11 @@ const Message = () => {
               placeholder="Room ID"
               onChange={(e) => setRoom(e.target.value)}
             />
+            {error && (
+              <h1 className="text-red-500 text-sm font-semibold">
+                SELECT A ROOM!
+              </h1>
+            )}
           </div>
           <button
             type="submit"
@@ -82,7 +88,14 @@ const Message = () => {
             messageList={messageList}
             askedQuestion={askedQuestion}
           />
-          <button onClick={() => leaveChat()}>Leave Room</button>
+          <div className="text-center mt-4">
+            <button
+              onClick={() => leaveChat()}
+              className="border-2 border-blue-900 p-1 rounded-lg bg-purple-800 text-white italic"
+            >
+              Leave Room
+            </button>
+          </div>
         </div>
       )}
     </div>

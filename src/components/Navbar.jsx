@@ -1,15 +1,22 @@
-import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { logout } from "../slices/userSlice";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const location = useLocation().pathname;
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.email);
+  const logoutUser = () => {
+    dispatch(logout());
+    navigate("/");
+  };
   return (
     <div className="w-screen h-16 bg-black fixed flex justify-between">
       <div className="flex items-center">
         <Link
           to="/"
-          className="text-white ml-6 italic border-blue-500 p-2 rounded-full border-4 text-xl"
+          className="text-white ml-6 italic border-blue-800 p-2 rounded-full border-4 text-xl"
         >
           BTW
         </Link>
@@ -72,6 +79,14 @@ const Navbar = () => {
           <Link to="/chat" className="text-green-500 italic  duration-200 m-5">
             CHAT
           </Link>
+        )}
+        {user && (
+          <button
+            onClick={() => dispatch(logoutUser)}
+            className="text-white italic  duration-200 m-5 hover:text-green-500"
+          >
+            LOGOUT
+          </button>
         )}
       </div>
     </div>
