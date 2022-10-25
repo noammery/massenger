@@ -5,7 +5,7 @@ import Chat from "./Chat";
 //connecting to the backEnd server
 
 const Message = () => {
-  const socket = io.connect(`https://puce-odd-chipmunk.cyclic.app`, {
+  const socket = io.connect(`https://nmmessanger-api.herokuapp.com`, {
     withCredentials: true,
     transports: ["websocket"],
   });
