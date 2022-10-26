@@ -100,7 +100,7 @@ const Message = () => {
           <div className="text-center mt-4">
             <button
               onClick={() => leaveChat()}
-              className="border-2 border-blue-900 p-1 rounded-lg bg-purple-800 text-white italic"
+              className="border-2 border-black p-1 rounded-lg bg-red-800 text-white italic"
             >
               Leave Room
             </button>

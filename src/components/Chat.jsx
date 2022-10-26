@@ -142,7 +142,7 @@ const Chat = (props) => {
           welcome {user ? user : email}, currently in room: {room}
         </h1>
       </div>
-      <div className="w-96 h-128 border-black border-2 bg-orange-200/80 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide rounded-md">
+      <div className="w-96 h-96 border-black border-2 bg-orange-200/80 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide rounded-md">
         {messageList.map((message, index) => {
           return message.author === user ? (
             <div key={index} className="inline-flex w-60 break-all">
