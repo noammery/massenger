@@ -27,7 +27,7 @@ const Guests = () => {
         />
         <button
           type="submit"
-          className="p-1 border-2 border-blue-900 rounded-lg bg-purple-700 text-white italic text-sm "
+          className="p-1 border-2 border-blue-900 rounded-lg bg-black text-white italic text-sm w-36 "
         >
           JOIN AS A GUEST
         </button>

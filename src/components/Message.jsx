@@ -62,7 +62,7 @@ const Message = () => {
   }, [socket]);
 
   return (
-    <div className="flex justify-center flex-col items-center w-screen h-screen bg-blue-400">
+    <div className="flex justify-center flex-col items-center w-screen h-auto min-h-screen bg-blue-400">
       {!showChat ? (
         <form onSubmit={JoinRoom} className="text-center">
           <h1 className="text-3xl text-black underline decoration-black italic text-center">

@@ -138,14 +138,11 @@ const Chat = (props) => {
   return (
     <div className="mt-10 flex flex-col items-center">
       <div>
-        <h1 className="text-center text-xl font-semibold italic underline decoration-purple-700">
-          Better then Whatsapp Chat
-        </h1>
         <h1 className="mt-2 text-center text-lg italic font-medium">
           welcome {user ? user : email}, currently in room: {room}
         </h1>
       </div>
-      <div className="w-64 h-80 border-black border-2 bg-orange-200/80 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide rounded-md">
+      <div className="w-96 h-128 border-black border-2 bg-orange-200/80 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide rounded-md">
         {messageList.map((message, index) => {
           return message.author === user ? (
             <div key={index} className="inline-flex w-60 break-all">
@@ -158,7 +155,7 @@ const Chat = (props) => {
           ) : (
             <div
               key={index}
-              className="inline-flex justify-end w-60 break-all "
+              className="inline-flex justify-end w-96 break-all "
             >
               <div className="bg-green-600/80 px-3 rounded-lg mt-2 ml-2">
                 <p className="text-xs italic">{message.author}:</p>
@@ -178,12 +175,12 @@ const Chat = (props) => {
             ? SubmitIt
             : Send
         }
-        className="w-64"
+        className="w-96 flex justify-center align-middle"
       >
         <input
           type="text"
           placeholder="Enter a message"
-          className="border-black border-2  h-10 w-52 mt-1 rounded-md"
+          className="border-black border-2  h-10 w-80 mt-1 rounded-md"
           onChange={(e) =>
             room === "admin" && user === "admin admin"
               ? AdminChat(e.target.value)
@@ -195,7 +192,7 @@ const Chat = (props) => {
         />
         <button
           type="submit"
-          className="bg-gray-400/50  w-12 h-10 border-black border-2 border-l-black rounded-md"
+          className="bg-gray-400/50  w-12 h-10 border-black border-2 border-l-black rounded-md mt-1"
         >
           ➤
         </button>
