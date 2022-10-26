@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -7,7 +8,7 @@ import Chat from "./Chat";
 
 const Message = () => {
   // https://nmmessanger-api.herokuapp.com
-  const socket = io.connect(`https://nmmessanger-api.herokuapp.com`, {
+  const socket = io.connect(`http://localhost:3001`, {
     withCredentials: true,
     transports: ["websocket"],
   });
@@ -18,11 +19,19 @@ const Message = () => {
   let [askedQuestion, setAskedQuestion] = useState("");
   const [error, setError] = useState(false);
 
-  const JoinRoom = (e) => {
+  const JoinRoom = async (e) => {
     if (room !== "") {
       socket.emit(`join_room`, room);
       setShowChat(true);
       setError(false);
+      let message = "";
+      await axios
+        .post(
+          `${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/history/gethistory`,
+          { room: room }
+        )
+        .then((res) => (message = res.data));
+      setMessageList([...message]);
     } else {
       e.preventDefault();
       setError(true);

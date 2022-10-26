@@ -114,7 +114,12 @@ const Chat = (props) => {
       await socket.emit(`send_message`, messageData);
       setInputValue();
       setMessage("");
+      axios.post(
+        `${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/history/room`,
+        messageData
+      );
     }
+
     if (room === "admin" && user !== "admin admin" && message !== "") {
       socket.emit(`submit_question`, message);
     }
