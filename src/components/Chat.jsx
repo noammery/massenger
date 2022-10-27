@@ -146,7 +146,7 @@ const Chat = (props) => {
         {messageList.map((message, index) => {
           return message.author === user ? (
             <div key={index} className="inline-flex w-60 break-all">
-              <div className="bg-blue-600/80 px-3 rounded-lg mt-2 ml-2 ">
+              <div className="bg-blue-600/80 px-3 rounded-lg mt-2 ml-2">
                 <p className="text-xs italic">{message.author}</p>
                 <h1 className="text-md">{message.message}</h1>
                 <p className="text-xs mr-2 font-semibold">{message.time}</p>
@@ -155,7 +155,7 @@ const Chat = (props) => {
           ) : (
             <div
               key={index}
-              className="inline-flex justify-end w-96 break-all "
+              className="inline-flex justify-end w-85 break-all "
             >
               <div className="bg-green-600/80 px-3 rounded-lg mt-2 ml-2">
                 <p className="text-xs italic">{message.author}:</p>
