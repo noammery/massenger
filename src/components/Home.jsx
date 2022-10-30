@@ -10,7 +10,7 @@ const Home = () => {
           Welcome to
         </h1>
         <h1 className="italic text-3xl font-extrabold underline decoration-4 decoration-blue-900">
-          BETTER THEN WhatsApp
+          BETTER THAN WhatsApp
         </h1>
         <p className="text-center text-xs text-black/70 mt-5">
           online self - learning BOT
