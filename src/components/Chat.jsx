@@ -3,12 +3,13 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import Loading from "./Loading";
 
 const Chat = (props) => {
   const email = useSelector((state) => state.user.email);
   let askedQuestion = props.askedQuestion;
   // eslint-disable-next-line
-  const { room, socket, messageList, setMessageList } = props;
+  const { room, socket, messageList, setMessageList, loading } = props;
   const [message, setMessage] = useState("");
   const [inputValue, setInputValue] = useState();
   const [user, setUser] = useState(email);
@@ -143,28 +144,34 @@ const Chat = (props) => {
         </h1>
       </div>
       <div className="w-96 h-96 border-black border-2 bg-orange-200/80 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide rounded-md">
-        {messageList.map((message, index) => {
-          return message.author === user ? (
-            <div key={index} className="inline-flex w-60 break-all">
-              <div className="bg-blue-600/80 px-3 rounded-lg mt-2 ml-2">
-                <p className="text-xs italic">{message.author}</p>
-                <h1 className="text-md">{message.message}</h1>
-                <p className="text-xs mr-2 font-semibold">{message.time}</p>
+        {loading ? (
+          <div className="w-96 h-96 flex justify-center items-center ">
+            <Loading />
+          </div>
+        ) : (
+          messageList.map((message, index) => {
+            return message.author === user ? (
+              <div key={index} className="inline-flex w-60 break-all">
+                <div className="bg-blue-600/80 px-3 rounded-lg mt-2 ml-2">
+                  <p className="text-xs italic">You</p>
+                  <h1 className="text-md">{message.message}</h1>
+                  <p className="text-xs mr-2 font-semibold">{message.time}</p>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div
-              key={index}
-              className="inline-flex justify-end w-85 break-all "
-            >
-              <div className="bg-green-600/80 px-3 rounded-lg mt-2 ml-2">
-                <p className="text-xs italic">{message.author}:</p>
-                <h1 className="text-md">{message.message}</h1>
-                <p className="text-xs mr-2">{message.time}</p>
+            ) : (
+              <div
+                key={index}
+                className="inline-flex justify-end w-85 break-all "
+              >
+                <div className="bg-green-600/80 px-3 rounded-lg mt-2 ml-2">
+                  <p className="text-xs italic">{message.author}:</p>
+                  <h1 className="text-md">{message.message}</h1>
+                  <p className="text-xs mr-2">{message.time}</p>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
         <div ref={endMessage}></div>
       </div>
       <form
