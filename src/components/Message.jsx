@@ -92,7 +92,7 @@ const Message = () => {
     room && JoinRoom();
   }
   return (
-    <div className="flex justify-center flex-col items-center w-screen h-auto min-h-screen bg-white">
+    <div className="flex justify-center flex-col items-center w-auto h-auto min-h-screen bg-white overflow-x-hidden">
       {!showChat ? (
         <div className="flex flex-col justify-between">
           <form onSubmit={JoinRoom} className="text-center mt-20">

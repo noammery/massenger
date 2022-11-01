@@ -12,7 +12,7 @@ const Navbar = () => {
     navigate("/");
   };
   return (
-    <div className="w-screen h-16 bg-black fixed flex justify-between border-b-2 border-b-purple-800">
+    <div className="w-screen h-16 bg-black fixed flex justify-between border-b-2 border-b-purple-800 overflow-x-hidden">
       <div className="flex items-center">
         <Link
           to="/"

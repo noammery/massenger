@@ -139,11 +139,11 @@ const Chat = (props) => {
   return (
     <div className="mt-10 flex flex-col items-center">
       <div>
-        <h1 className="text-center text-3xl  font-extrabold mb-6">
+        <h1 className="text-center text-xl  font-bold mb-6 mt-5 ">
           welcome {user ? user : email}, currently in room: {room}
         </h1>
       </div>
-      <div className="w-96 h-100 border-black border-2 bg-orange-200/80 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide rounded-md">
+      <div className="w-96 h-100 border-black border-2 bg-gray-200/80 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide rounded-md">
         {loading ? (
           <div className="w-96 h-96 flex justify-center items-center ">
             <Loading />
