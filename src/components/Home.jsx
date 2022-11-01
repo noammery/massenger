@@ -4,18 +4,15 @@ import Guests from "./Guest";
 const Home = () => {
   const user = useSelector((state) => state.user.email);
   return (
-    <div className="h-screen w-screen bg-blue-400 flex justify-center items-center">
+    <div className="h-screen w-screen bg-white flex justify-center items-center">
       <div>
-        <h1 className=" text-sm  text-center  text-white mb-5 font-semibold italic">
-          Welcome to
-        </h1>
-        <h1 className="italic text-3xl font-extrabold underline decoration-4 decoration-blue-900">
-          BETTER THAN WhatsApp
+        <h1 className="text-center text-3xl  font-extrabold mb-6 text-purple-500 ">
+          BTW
         </h1>
         <p className="text-center text-xs text-black/70 mt-5">
-          online self - learning BOT
+          Online massenger and a self-learning bot!
         </p>
-        <p className="text-center text-xs text-black/70 ">Noam Mery</p>
+        <p className="text-center text-xs text-black/70 ">By Noam Mery</p>
         {!user && <Guests />}
       </div>
     </div>

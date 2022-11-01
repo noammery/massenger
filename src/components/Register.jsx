@@ -41,26 +41,23 @@ const Register = () => {
       `${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/user/register`,
       user
     );
-    res.data && navigate("login");
+    res.data && navigate("/");
   };
 
   return (
-    <div className="flex justify-center align-middle items-center h-screen bg-blue-400">
+    <div className="flex justify-center align-middle items-center h-screen bg-white">
       <div className=" h-96 flex flex-col justify-between text-center">
         <form
           onSubmit={handleSubmit(OnSubmit)}
           className="flex flex-col h-64 justify-between"
         >
-          <h1 className="text-2xl underline decoration-blue-900 mb-7">
-            Welcome to the best MESSANGER
+          <h1 className="text-center text-3xl  font-extrabold mb-6">
+            Register
           </h1>
           <div className="flex flex-col">
-            <label htmlFor="" className="text-black italic text-xl">
-              Full Name
-            </label>
             <input
               placeholder="James Bond"
-              className="border-black border-2 text-center text-blue-900 rounded-md "
+              className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-purple-500 mb-5"
               type="text"
               {...register("fullName")}
               onChange={(e) => setFullName(e.target.value)}
@@ -72,12 +69,9 @@ const Register = () => {
             )}
           </div>
           <div className="flex flex-col">
-            <label htmlFor="" className="text-black italic text-xl">
-              Email
-            </label>
             <input
               placeholder="JamesBond@gmail.com"
-              className="border-black border-2 text-center text-blue-900 rounded-md "
+              className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-purple-500 mb-5"
               type="email"
               {...register("email")}
               onChange={(e) => setEmail(e.target.value)}
@@ -90,12 +84,9 @@ const Register = () => {
             )}
           </div>
           <div className="flex flex-col">
-            <label htmlFor="" className="text-black italic text-xl">
-              Password
-            </label>
             <input
               placeholder="*****"
-              className="border-black border-2 text-center text-blue-900 rounded-md "
+              className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-purple-500 mb-5"
               type="password"
               {...register("password")}
               onChange={(e) => setPassword(e.target.value)}
@@ -110,7 +101,7 @@ const Register = () => {
             <button
               type="submit"
               disabled={!isValid}
-              className="cursor-pointer border-2 border-white rounded-2xl text-white w-20 bg-blue-800 hover:bg-black hover:text-red-500 hover:border-red-500 duration-500 italic  mt-8 hover:scale-110"
+              className="py-4 bg-purple-600 w-full rounded text-purple-50 font-bold hover:bg-purple-700 mt-5"
             >
               Register
             </button>
@@ -118,7 +109,7 @@ const Register = () => {
         </form>
         <Link
           to="/login"
-          className="text-black italic underline decoration-black"
+          className="text-sm text-black/50 hover:text-purple-900"
         >
           Already have an account?
         </Link>

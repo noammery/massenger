@@ -19,37 +19,35 @@ const Login = () => {
       .then((res) => dispatch(login(res.data.email)) && navigate("/chat"));
   };
   return (
-    <div className="h-screen w-screen bg-blue-400 flex justify-center items-center">
+    <div className="h-screen w-screen bg-white flex justify-center items-center">
       <form onSubmit={HandleLogin} className="text-center">
-        <h1 className="text-2xl underline decoration-blue-900 mb-7">Login</h1>
+        <h1 className="text-center text-3xl  font-extrabold mb-6">Login</h1>
         <div className="flex flex-col">
-          <label className="text-black italic text-xl">Email</label>
           <input
             placeholder="email@example.com"
             type="text"
             onChange={(e) => setEmail(e.target.value)}
-            className="border-black border-2 text-center text-blue-900 rounded-md "
+            className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-purple-500 mb-5"
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-black italic text-xl">password</label>
           <input
             placeholder="****"
-            className="border-black border-2 text-center text-blue-900 rounded-md "
+            className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-purple-500 "
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <button
           type="submit"
-          className="cursor-pointer border-2 border-white rounded-2xl text-white w-20 bg-blue-800 hover:bg-black hover:text-red-500 hover:border-red-500 duration-500 italic  mt-8 hover:scale-110 mb-10"
+          className="py-4 bg-purple-600 w-full rounded text-purple-50 font-bold hover:bg-purple-700 mt-5"
         >
           Login!
         </button>
         <br></br>
         <Link
           to="/register"
-          className="text-black italic underline decoration-black"
+          className="text-sm text-black/50 hover:text-purple-900"
         >
           Dont have an account?
         </Link>

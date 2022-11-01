@@ -12,11 +12,11 @@ const Navbar = () => {
     navigate("/");
   };
   return (
-    <div className="w-screen h-16 bg-black fixed flex justify-between border-b-2 border-b-blue-800">
+    <div className="w-screen h-16 bg-black fixed flex justify-between border-b-2 border-b-purple-800">
       <div className="flex items-center">
         <Link
           to="/"
-          className="text-white ml-6 italic border-blue-800 p-2 rounded-full border-4 text-xl"
+          className="text-white ml-6 italic border-purple-800 p-2 rounded-full border-4 text-xl"
         >
           BTW
         </Link>
@@ -25,12 +25,12 @@ const Navbar = () => {
         {location !== "/" ? (
           <Link
             to="/"
-            className="text-white italic hover:text-blue-800 duration-200 m-5"
+            className="text-white italic hover:text-purple-800 duration-200 m-5"
           >
             HOME
           </Link>
         ) : (
-          <Link to="/" className="text-blue-800 font-extrabold italic  m-5">
+          <Link to="/" className="text-purple-800 font-extrabold italic  m-5">
             HOME
           </Link>
         )}
@@ -40,14 +40,14 @@ const Navbar = () => {
             {location !== "/login" ? (
               <Link
                 to="/login"
-                className="text-white italic hover:text-blue-800 duration-200 m-5"
+                className="text-white italic hover:text-purple-800 duration-200 m-5"
               >
                 LOGIN
               </Link>
             ) : (
               <Link
                 to="/login"
-                className="text-blue-800 font-extrabold italic   m-5"
+                className="text-purple-800 font-extrabold italic   m-5"
               >
                 LOGIN
               </Link>
@@ -55,14 +55,14 @@ const Navbar = () => {
             {location !== "/register" ? (
               <Link
                 to="/register"
-                className="text-white italic hover:text-blue-800 duration-200 m-5"
+                className="text-white italic hover:text-purple-800 duration-200 m-5"
               >
                 REGISTER
               </Link>
             ) : (
               <Link
                 to="/register"
-                className="text-blue-800 font-extrabold italic  m-5"
+                className="text-purple-800 font-extrabold italic  m-5"
               >
                 REGISTER
               </Link>
@@ -71,14 +71,14 @@ const Navbar = () => {
         ) : location !== "/chat" ? (
           <Link
             to="/chat"
-            className="text-white italic hover:text-blue-800 duration-200 m-5"
+            className="text-white italic hover:text-purple-800 duration-200 m-5"
           >
             CHAT
           </Link>
         ) : (
           <Link
             to="/chat"
-            className="text-blue-800 font-extrabold italic   m-5"
+            className="text-purple-800 font-extrabold italic   m-5"
           >
             CHAT
           </Link>
@@ -86,7 +86,7 @@ const Navbar = () => {
         {user && (
           <button
             onClick={() => dispatch(logoutUser)}
-            className="text-white italic  duration-200 m-5 hover:text-blue-800"
+            className="text-white italic  duration-200 m-5 hover:text-purple-800"
           >
             LOGOUT
           </button>

@@ -92,16 +92,16 @@ const Message = () => {
     room && JoinRoom();
   }
   return (
-    <div className="flex justify-center flex-col items-center w-screen h-auto min-h-screen bg-blue-400">
+    <div className="flex justify-center flex-col items-center w-screen h-auto min-h-screen bg-white">
       {!showChat ? (
         <div className="flex flex-col justify-between">
           <form onSubmit={JoinRoom} className="text-center mt-20">
-            <h1 className="text-3xl text-black underline decoration-black italic text-center">
+            <h1 className="text-center text-3xl  font-extrabold mb-6">
               Join a room
             </h1>
             <div className="mt-10">
               <input
-                className="border-black border-2 bg-gray-500/20 ml-2 rounded-lg  text-center"
+                className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-purple-500 mb-5"
                 type="text"
                 placeholder="Room ID"
                 onChange={(e) => setRoom(e.target.value)}
@@ -114,12 +114,12 @@ const Message = () => {
             </div>
             <button
               type="submit"
-              className="mt-10 border-black bg-gray-200/50 border-2 italic text-blue-500 p-1 rounded-3xl text-center hover:bg-black hover:text-white hover:border-white duration-300"
+              className="py-4 bg-purple-600 w-full rounded text-purple-50 font-bold hover:bg-purple-700 mt-5"
             >
               Join a room
             </button>
           </form>
-          <h1 className="text-center m-4 text-xl underline italic  decoration-blue-800 font-extrabold decoration-4">
+          <h1 className="text-center m-4 text-xl underline italic  decoration-purple-800 font-extrabold decoration-4">
             Your rooms
           </h1>
           <div className="flex w-72 flex-wrap">
@@ -127,7 +127,7 @@ const Message = () => {
               roomList.map((roomName, index) => {
                 return (
                   <h1
-                    className="border-4 border-blue-800 rounded-lg font-semibold italic cursor-pointer  text-center m-2 w-20"
+                    className="border-4 border-purple-800 rounded-lg font-semibold italic cursor-pointer  text-center m-2 w-20"
                     key={index}
                     onClick={() => Clickedroom(roomName)}
                   >
@@ -155,7 +155,7 @@ const Message = () => {
           <div className="text-center mt-4">
             <button
               onClick={() => leaveChat()}
-              className="border-2 border-black p-1 rounded-lg bg-red-800 text-white italic"
+              className="py-4 bg-red-600 w-28 rounded text-white font-bold hover:bg-red-700 mt-5"
             >
               Leave Room
             </button>

@@ -139,11 +139,11 @@ const Chat = (props) => {
   return (
     <div className="mt-10 flex flex-col items-center">
       <div>
-        <h1 className="mt-2 text-center text-lg italic font-medium">
+        <h1 className="text-center text-3xl  font-extrabold mb-6">
           welcome {user ? user : email}, currently in room: {room}
         </h1>
       </div>
-      <div className="w-96 h-96 border-black border-2 bg-orange-200/80 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide rounded-md">
+      <div className="w-96 h-100 border-black border-2 bg-orange-200/80 flex flex-col overflow-y-scroll overflow-hidden  scrollbar-hide rounded-md">
         {loading ? (
           <div className="w-96 h-96 flex justify-center items-center ">
             <Loading />
@@ -152,7 +152,7 @@ const Chat = (props) => {
           messageList.map((message, index) => {
             return message.author === user ? (
               <div key={index} className="inline-flex w-60 break-all">
-                <div className="bg-blue-600/80 px-3 rounded-lg mt-2 ml-2">
+                <div className="bg-purple-600/80 px-3 rounded-lg mt-2 ml-2">
                   <p className="text-xs italic">You</p>
                   <h1 className="text-md">{message.message}</h1>
                   <p className="text-xs mr-2 font-semibold">{message.time}</p>
@@ -163,7 +163,7 @@ const Chat = (props) => {
                 key={index}
                 className="inline-flex justify-end w-85 break-all "
               >
-                <div className="bg-green-600/80 px-3 rounded-lg mt-2 ml-2">
+                <div className="bg-white px-3 rounded-lg mt-2 ml-2">
                   <p className="text-xs italic">{message.author}:</p>
                   <h1 className="text-md">{message.message}</h1>
                   <p className="text-xs mr-2">{message.time}</p>

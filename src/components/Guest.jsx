@@ -23,11 +23,11 @@ const Guests = () => {
           type="text"
           onChange={(e) => setEmail(e.target.value)}
           placeholder="temporary name"
-          className="w-44 mb-4 border-black border-2 bg-white/25 text-center rounded-lg"
+          className="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500 text-center"
         />
         <button
           type="submit"
-          className="p-1 border-2 border-blue-900 rounded-lg bg-black text-white italic text-sm w-36 "
+          className="py-4 bg-purple-600 w-full rounded text-blue-50 font-bold hover:bg-purple-700 mt-5"
         >
           JOIN AS A GUEST
         </button>
