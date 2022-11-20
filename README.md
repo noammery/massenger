@@ -39,7 +39,7 @@ BTW was made as a part of learning socket.io and creating an online - app, and i
 
 Messaging Example:
 
-<p align="center"><img src="./readmeImg.png" width="300" /></p>
+<p align="center"><img src="./WhatsApp Image 2022-11-20 at 09.04.26.jpeg" width="300" /></p>
 
 ## Technologies:
 
