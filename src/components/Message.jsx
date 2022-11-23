@@ -32,16 +32,18 @@ const Message = () => {
       setShowChat(true);
       setError(false);
       let message = "";
-      await axios
-        .post(
-          `${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/history/gethistory`,
-          { room: room }
-        )
-        .then((res) => (message = res.data));
-      setMessageList([...message]);
-    } else {
-      e.preventDefault();
-      setError(true);
+      if (room !== "admin" && room !== "7") {
+        await axios
+          .post(
+            `${process.env.REACT_APP_SECERET_NAME_BACKENDURL}/history/gethistory`,
+            { room: room }
+          )
+          .then((res) => (message = res.data));
+        setMessageList([...message]);
+      } else {
+        e.preventDefault();
+        setError(true);
+      }
     }
     setLoading(false);
   };
